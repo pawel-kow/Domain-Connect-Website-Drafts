@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Domain Connect – Website Drafts</title>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --dc-navy:  #03263B;
+    --dc-blue:  #0b3954;
+    --dc-sky:   #bddae6;
+    --dc-coral: #ff6663;
+    --dc-light: #f5f8fa;
+    --dc-gray:  #686868;
+  }
+  body { font-family: 'Open Sans', sans-serif; background: var(--dc-light); color: var(--dc-navy); min-height: 100vh; }
+
+  header {
+    background: var(--dc-navy);
+    padding: 32px 48px;
+  }
+  .logo { font-size: 20px; font-weight: 700; color: #fff; letter-spacing: -.3px; }
+  .logo span { color: var(--dc-coral); }
+  header p { font-size: 13px; color: rgba(255,255,255,.55); margin-top: 6px; }
+
+  main {
+    max-width: 860px;
+    margin: 56px auto;
+    padding: 0 24px;
+  }
+
+  h1 { font-size: 26px; font-weight: 700; color: var(--dc-navy); margin-bottom: 8px; }
+  .subtitle { font-size: 15px; color: var(--dc-gray); margin-bottom: 40px; line-height: 1.6; }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--dc-coral);
+    margin-bottom: 14px;
+  }
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+    margin-bottom: 48px;
+  }
+
+  .card {
+    background: #fff;
+    border: 1px solid var(--dc-sky);
+    border-radius: 12px;
+    padding: 28px 24px;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: transform .15s, box-shadow .15s;
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .card.navy::before  { background: linear-gradient(90deg, var(--dc-navy), var(--dc-blue)); }
+  .card.coral::before { background: linear-gradient(90deg, #8b2020, var(--dc-coral)); }
+  .card.teal::before  { background: linear-gradient(90deg, var(--dc-blue), var(--dc-sky)); }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(3,38,59,.12); }
+
+  .card-icon { font-size: 28px; margin-bottom: 14px; }
+  .card h2 { font-size: 16px; font-weight: 700; color: var(--dc-navy); margin-bottom: 8px; }
+  .card p { font-size: 13px; color: var(--dc-gray); line-height: 1.65; margin-bottom: 16px; }
+  .card-audience {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 20px;
+    background: var(--dc-light);
+    color: var(--dc-blue);
+    border: 1px solid var(--dc-sky);
+    margin-bottom: 6px;
+  }
+  .card-link {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--dc-coral);
+  }
+
+  .module-note {
+    background: #fff;
+    border: 1px solid var(--dc-sky);
+    border-radius: 12px;
+    padding: 20px 24px;
+    font-size: 13px;
+    color: var(--dc-gray);
+    line-height: 1.7;
+  }
+  .module-note strong { color: var(--dc-navy); }
+
+  footer {
+    text-align: center;
+    padding: 32px;
+    font-size: 12px;
+    color: var(--dc-gray);
+    border-top: 1px solid var(--dc-sky);
+    margin-top: 24px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Domain<span>Connect</span></div>
+  <p>Website content drafts — domainconnect.org</p>
+</header>
+
+<main>
+  <h1>Website Drafts</h1>
+  <p class="subtitle">Standalone page proposals and homepage module designs for <strong>domainconnect.org</strong>. Each file is a fully self-contained HTML document — no build step required.</p>
+
+  <p class="section-label">Full Pages — domainconnect.org</p>
+  <div class="card-grid">
+
+    <a href="dns-providers.html" class="card navy">
+      <div class="card-icon">🛡️</div>
+      <span class="card-audience">DNS Providers &amp; Registrars</span>
+      <h2>DNS Providers</h2>
+      <p>Benefits, user experience walkthrough, technical protocol diagram, template anatomy, and implementation guide.</p>
+      <div class="card-link">Open page →</div>
+    </a>
+
+    <a href="service-providers.html" class="card coral">
+      <div class="card-icon">🚀</div>
+      <span class="card-audience">SaaS &amp; Service Providers</span>
+      <h2>Service Providers</h2>
+      <p>Benefits, conversion funnel problem, before/after UX comparison, template creation guide, and get-started steps.</p>
+      <div class="card-link">Open page →</div>
+    </a>
+
+  </div>
+
+  <p class="section-label">Homepage Modules — refresh.domainconnect.org</p>
+  <div class="card-grid">
+
+    <a href="refresh-modules.html#dns" class="card teal">
+      <div class="card-icon">📡</div>
+      <span class="card-audience">DNS Providers</span>
+      <h2>DNS Provider Benefits Module</h2>
+      <p>Embeddable homepage section — stat ribbon, 6 benefit cards, protocol flow diagram, and CTA. Scoped to <code>.module-dns</code>.</p>
+      <div class="card-link">Preview module →</div>
+    </a>
+
+    <a href="refresh-modules.html#sp" class="card coral">
+      <div class="card-icon">⚡</div>
+      <span class="card-audience">Service Providers</span>
+      <h2>Service Provider Benefits Module</h2>
+      <p>Embeddable homepage section — adopter strip, stat ribbon, 6 benefit cards, highlight callouts, before/after comparison. Scoped to <code>.module-sp</code>.</p>
+      <div class="card-link">Preview module →</div>
+    </a>
+
+  </div>
+
+  <div class="module-note">
+    <strong>Embedding the refresh modules:</strong> Copy the contents of each <code>&lt;section class="module-dns"&gt;</code> or <code>&lt;section class="module-sp"&gt;</code> element from <a href="refresh-modules.html" style="color:var(--dc-coral)">refresh-modules.html</a> into the refresh site template. Add the corresponding CSS block (scoped to those class names) to the page stylesheet. No external dependencies beyond the existing Open Sans font import.
+  </div>
+</main>
+
+<footer>
+  Domain Connect — Open Standard · <a href="https://datatracker.ietf.org/wg/dconn/about/" style="color:var(--dc-coral)">IETF DCONN Working Group</a>
+</footer>
+
+</body>
+</html>
