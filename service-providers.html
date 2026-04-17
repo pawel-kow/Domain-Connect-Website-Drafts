@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Service Providers – Domain Connect</title>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --dc-navy:   #03263B;
+    --dc-blue:   #0b3954;
+    --dc-sky:    #bddae6;
+    --dc-coral:  #ff6663;
+    --dc-white:  #ffffff;
+    --dc-light:  #f5f8fa;
+    --dc-gray:   #686868;
+    --dc-text:   #252525;
+    --dc-accent: #00bfff;
+    --radius:    8px;
+    --shadow:    0 4px 24px rgba(3,38,59,.12);
+  }
+
+  body { font-family: 'Open Sans', sans-serif; color: var(--dc-text); background: var(--dc-white); }
+
+  /* ── NAV ── */
+  header {
+    background: var(--dc-white);
+    border-bottom: 2px solid var(--dc-sky);
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 2px 8px rgba(3,38,59,.08);
+  }
+  .logo { font-size: 22px; font-weight: 700; color: var(--dc-navy); text-decoration: none; letter-spacing: -.5px; }
+  .logo span { color: var(--dc-coral); }
+  nav a { margin-left: 28px; font-size: 14px; font-weight: 600; color: var(--dc-blue); text-decoration: none; }
+  nav a:hover { color: var(--dc-coral); }
+  nav a.active { border-bottom: 2px solid var(--dc-coral); padding-bottom: 2px; }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, #1a0a0a 0%, #3d1515 40%, #6b1f1f 100%);
+    color: var(--dc-white);
+    padding: 80px 40px 64px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='40' cy='40' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,102,99,.25);
+    border: 1px solid rgba(255,102,99,.5);
+    border-radius: 20px;
+    padding: 6px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .5px;
+    margin-bottom: 24px;
+    text-transform: uppercase;
+    color: #ffb3b1;
+  }
+  .hero h1 { font-size: clamp(32px, 5vw, 52px); font-weight: 700; line-height: 1.15; margin-bottom: 20px; }
+  .hero h1 span { color: #ffb3b1; }
+  .hero p { font-size: 18px; max-width: 660px; margin: 0 auto 36px; opacity: .88; line-height: 1.7; }
+  .btn {
+    display: inline-block; padding: 14px 32px; border-radius: var(--radius);
+    font-size: 15px; font-weight: 700; text-decoration: none;
+    transition: transform .15s, box-shadow .15s; cursor: pointer; border: none;
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,.25); }
+  .btn-primary { background: var(--dc-coral); color: var(--dc-white); }
+  .btn-outline { background: transparent; color: var(--dc-white); border: 2px solid rgba(255,255,255,.5); margin-left: 12px; }
+  .btn-outline:hover { border-color: var(--dc-white); }
+
+  /* ── ADOPTER STRIP ── */
+  .adopter-strip {
+    background: var(--dc-navy);
+    padding: 24px 40px;
+    text-align: center;
+  }
+  .adopter-label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,.5); margin-bottom: 16px; }
+  .adopter-logos { display: flex; justify-content: center; align-items: center; gap: 40px; flex-wrap: wrap; }
+  .adopter-logo {
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 8px;
+    padding: 10px 24px;
+    font-size: 14px; font-weight: 700; color: rgba(255,255,255,.7);
+    letter-spacing: .5px;
+  }
+
+  /* ── STAT BAR ── */
+  .stat-bar {
+    background: var(--dc-coral);
+    display: flex; justify-content: center;
+  }
+  .stat-item {
+    padding: 28px 48px; text-align: center;
+    border-right: 1px solid rgba(255,255,255,.25);
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-num { font-size: 36px; font-weight: 700; color: var(--dc-white); display: block; }
+  .stat-label { font-size: 13px; color: rgba(255,255,255,.85); font-weight: 600; text-transform: uppercase; letter-spacing: .5px; margin-top: 4px; }
+
+  /* ── SECTIONS ── */
+  section { padding: 72px 40px; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .section-label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--dc-coral); margin-bottom: 12px; }
+  h2 { font-size: clamp(26px, 3.5vw, 38px); font-weight: 700; color: var(--dc-navy); line-height: 1.2; margin-bottom: 16px; }
+  .lead { font-size: 17px; color: var(--dc-gray); line-height: 1.8; max-width: 720px; }
+
+  /* ── THE PROBLEM ── */
+  .problem { background: var(--dc-light); }
+  .problem-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; margin-top: 48px; }
+  .funnel {
+    background: var(--dc-white); border-radius: 12px; padding: 28px;
+    box-shadow: var(--shadow);
+  }
+  .funnel-title { font-size: 13px; font-weight: 700; color: var(--dc-navy); margin-bottom: 20px; text-transform: uppercase; letter-spacing: .5px; }
+  .funnel-step {
+    margin-bottom: 6px;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .funnel-bar {
+    padding: 12px 18px;
+    font-size: 13px; font-weight: 600; color: var(--dc-white);
+    display: flex; justify-content: space-between;
+  }
+  .funnel-bar.f100 { background: var(--dc-navy); width: 100%; }
+  .funnel-bar.f85  { background: #0b4f72; width: 85%; }
+  .funnel-bar.f70  { background: #1a7aa3; width: 70%; }
+  .funnel-bar.f50  { background: var(--dc-coral); width: 50%; }
+  .funnel-note { font-size: 12px; color: var(--dc-gray); margin-top: 16px; font-style: italic; line-height: 1.6; }
+  .pain-blocks { display: flex; flex-direction: column; gap: 16px; }
+  .pain-block {
+    background: var(--dc-white);
+    border: 1px solid var(--dc-sky);
+    border-radius: 10px;
+    padding: 20px;
+    display: flex; align-items: flex-start; gap: 14px;
+  }
+  .pain-block-icon { font-size: 28px; flex-shrink: 0; }
+  .pain-block h4 { font-size: 15px; font-weight: 700; color: var(--dc-navy); margin-bottom: 5px; }
+  .pain-block p { font-size: 13px; color: var(--dc-gray); line-height: 1.6; }
+
+  /* ── BENEFITS ── */
+  .benefits-sp { background: var(--dc-white); }
+  .benefits-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 48px; }
+  .benefit-card {
+    border-radius: 12px; padding: 32px 28px;
+    transition: box-shadow .2s, transform .2s;
+    border: 1px solid var(--dc-sky);
+  }
+  .benefit-card:hover { box-shadow: var(--shadow); transform: translateY(-4px); }
+  .benefit-icon {
+    width: 52px; height: 52px;
+    background: linear-gradient(135deg, var(--dc-coral), #e05550);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; margin-bottom: 20px;
+  }
+  .benefit-card h3 { font-size: 18px; font-weight: 700; color: var(--dc-navy); margin-bottom: 10px; }
+  .benefit-card p { font-size: 14px; color: var(--dc-gray); line-height: 1.7; }
+  .highlight-box {
+    margin-top: 48px;
+    background: linear-gradient(135deg, var(--dc-navy), var(--dc-blue));
+    border-radius: 16px;
+    padding: 40px 48px;
+    display: flex; align-items: center; gap: 40px;
+    color: var(--dc-white);
+  }
+  .highlight-box .hl-num { font-size: 80px; font-weight: 700; color: var(--dc-coral); line-height: 1; flex-shrink: 0; }
+  .highlight-box h3 { font-size: 22px; font-weight: 700; margin-bottom: 10px; }
+  .highlight-box p { font-size: 15px; opacity: .85; line-height: 1.7; }
+
+  /* ── USER EXPERIENCE ── */
+  .ux-section { background: var(--dc-light); }
+  .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 48px; }
+  .compare-col { border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); }
+  .compare-header {
+    padding: 20px 24px; font-size: 16px; font-weight: 700; color: var(--dc-white);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .compare-header.bad { background: #c0392b; }
+  .compare-header.good { background: #1e8449; }
+  .compare-body { background: var(--dc-white); padding: 24px; }
+  .compare-step {
+    display: flex; gap: 14px; padding: 14px 0;
+    border-bottom: 1px solid var(--dc-sky);
+    align-items: flex-start;
+  }
+  .compare-step:last-child { border-bottom: none; }
+  .cs-icon { font-size: 18px; flex-shrink: 0; margin-top: 2px; }
+  .cs-text { font-size: 14px; line-height: 1.6; color: var(--dc-text); }
+  .cs-time {
+    margin-left: auto; flex-shrink: 0;
+    font-size: 11px; font-weight: 700;
+    background: var(--dc-light);
+    padding: 3px 8px; border-radius: 4px;
+    color: var(--dc-gray);
+  }
+  .compare-footer {
+    padding: 16px 24px;
+    font-size: 14px; font-weight: 700;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .compare-footer.bad { background: #fdf0ef; color: #c0392b; }
+  .compare-footer.good { background: #eafaf1; color: #1e8449; }
+
+  /* UI mockup screens */
+  .ui-flow { margin-top: 48px; }
+  .ui-flow-title { font-size: 15px; font-weight: 700; color: var(--dc-navy); margin-bottom: 24px; text-align: center; }
+  .ui-screens { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .ui-screen {
+    background: var(--dc-white);
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+  .ui-screen-top {
+    background: var(--dc-navy);
+    padding: 8px 12px;
+    display: flex; gap: 6px;
+  }
+  .ui-dot { width: 8px; height: 8px; border-radius: 50%; }
+  .ui-dot.r { background: #ff5f56; }
+  .ui-dot.y { background: #ffbd2e; }
+  .ui-dot.g { background: #27c93f; }
+  .ui-screen-body { padding: 16px; font-size: 12px; min-height: 140px; }
+  .ui-step-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--dc-coral); margin-bottom: 8px; }
+  .ui-mock-input {
+    border: 2px solid var(--dc-accent);
+    border-radius: 6px; padding: 8px 10px;
+    font-size: 12px; color: var(--dc-navy); margin-bottom: 10px;
+    font-family: monospace;
+  }
+  .ui-mock-btn {
+    background: #1a1a1a; color: var(--dc-white);
+    border-radius: 6px; padding: 8px 14px;
+    font-size: 11px; font-weight: 700; display: inline-block;
+  }
+  .ui-mock-btn.auto { background: var(--dc-navy); }
+  .ui-mock-btn.connect { background: #1e8449; }
+  .ui-provider-row {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--dc-light); border-radius: 6px; padding: 8px 10px;
+    margin-bottom: 8px;
+  }
+  .ui-provider-icon { font-size: 16px; }
+  .ui-provider-name { font-size: 11px; font-weight: 700; color: var(--dc-navy); }
+  .ui-provider-sub { font-size: 10px; color: var(--dc-gray); }
+  .ui-check { color: #27c93f; font-size: 20px; text-align: center; margin: 16px 0 8px; }
+  .ui-check-text { font-size: 11px; text-align: center; color: var(--dc-navy); font-weight: 700; }
+  .ui-check-sub { font-size: 10px; text-align: center; color: var(--dc-gray); margin-top: 4px; }
+
+  /* ── HOW IT WORKS ── */
+  .how-it-works { background: var(--dc-navy); color: var(--dc-white); }
+  .how-it-works h2 { color: var(--dc-white); }
+  .how-it-works .lead { color: rgba(255,255,255,.75); }
+  .flow-diagram { margin-top: 48px; }
+  .flow-row { display: flex; align-items: stretch; gap: 0; margin-bottom: 0; }
+  .flow-actor {
+    flex: 1;
+    background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+  }
+  .flow-arrow {
+    display: flex; align-items: center; justify-content: center;
+    width: 60px; flex-shrink: 0;
+    font-size: 22px; color: rgba(255,255,255,.4);
+    flex-direction: column; gap: 4px;
+  }
+  .flow-arrow-label { font-size: 9px; color: rgba(255,255,255,.35); text-align: center; max-width: 52px; line-height: 1.3; }
+  .flow-icon { font-size: 40px; margin-bottom: 14px; }
+  .flow-name { font-size: 16px; font-weight: 700; color: var(--dc-white); margin-bottom: 6px; }
+  .flow-desc { font-size: 13px; color: rgba(255,255,255,.65); line-height: 1.5; }
+
+  .sp-responsibilities { margin-top: 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .resp-item {
+    background: rgba(255,255,255,.07); border-radius: 10px; padding: 20px;
+    border-left: 3px solid var(--dc-coral);
+    display: flex; gap: 14px;
+  }
+  .resp-icon { font-size: 24px; flex-shrink: 0; }
+  .resp-item h4 { font-size: 14px; font-weight: 700; color: var(--dc-white); margin-bottom: 6px; }
+  .resp-item p { font-size: 13px; color: rgba(255,255,255,.65); line-height: 1.6; }
+
+  /* ── TEMPLATE CREATION ── */
+  .template-section { background: var(--dc-light); }
+  .template-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; margin-top: 48px; }
+  .code-block { background: #1a2332; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); }
+  .code-bar {
+    background: #0d1520; padding: 12px 20px;
+    display: flex; align-items: center; gap: 8px;
+    font-size: 12px; color: rgba(255,255,255,.5);
+  }
+  .code-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .code-dot.r { background: #ff5f56; }
+  .code-dot.y { background: #ffbd2e; }
+  .code-dot.g { background: #27c93f; }
+  pre { padding: 24px; font-size: 12.5px; line-height: 1.75; overflow-x: auto; color: #a8d8ea; font-family: 'Courier New', monospace; }
+  .json-key { color: #7ec8e3; }
+  .json-str { color: #a8e6cf; }
+  .json-num { color: #ffd3b6; }
+  .json-comment { color: #686868; font-style: italic; }
+  .template-guide { display: flex; flex-direction: column; gap: 16px; }
+  .tg-item {
+    background: var(--dc-white); border-radius: 10px; padding: 20px;
+    border: 1px solid var(--dc-sky); display: flex; gap: 14px;
+  }
+  .tg-icon { font-size: 22px; flex-shrink: 0; }
+  .tg-item h4 { font-size: 15px; font-weight: 700; color: var(--dc-navy); margin-bottom: 6px; }
+  .tg-item p { font-size: 13px; color: var(--dc-gray); line-height: 1.6; }
+  .tg-item code { font-size: 12px; background: var(--dc-light); padding: 2px 6px; border-radius: 3px; color: var(--dc-navy); }
+
+  /* ── GET STARTED ── */
+  .get-started { background: var(--dc-white); }
+  .gs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+  .card-steps { display: flex; flex-direction: column; gap: 20px; }
+  .card-step {
+    background: var(--dc-light); border-radius: 12px; padding: 24px;
+    display: flex; gap: 20px; align-items: flex-start;
+  }
+  .card-step-num {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--dc-navy); color: var(--dc-white);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 700; flex-shrink: 0;
+  }
+  .card-step h3 { font-size: 16px; font-weight: 700; color: var(--dc-navy); margin-bottom: 6px; }
+  .card-step p { font-size: 14px; color: var(--dc-gray); line-height: 1.6; }
+  .card-step a { font-size: 13px; font-weight: 700; color: var(--dc-coral); text-decoration: none; display: inline-block; margin-top: 8px; }
+  .card-step a:hover { text-decoration: underline; }
+  .sp-checklist {
+    background: var(--dc-light); border-radius: 12px; padding: 32px;
+  }
+  .sp-checklist h3 { font-size: 18px; font-weight: 700; color: var(--dc-navy); margin-bottom: 20px; }
+  .check-item {
+    display: flex; gap: 12px; padding: 12px 0;
+    border-bottom: 1px solid rgba(189,218,230,.5);
+    align-items: flex-start; font-size: 14px; color: var(--dc-text);
+  }
+  .check-item:last-child { border-bottom: none; }
+  .check-tick { color: #1e8449; font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .check-note { font-size: 12px; color: var(--dc-gray); margin-top: 3px; }
+  .tool-links { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 24px; }
+  .tool-link {
+    background: var(--dc-white); border: 1px solid var(--dc-sky);
+    border-radius: 8px; padding: 14px 16px;
+    text-decoration: none; transition: box-shadow .2s;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .tool-link:hover { box-shadow: var(--shadow); }
+  .tool-link-icon { font-size: 20px; }
+  .tool-link-text h4 { font-size: 13px; font-weight: 700; color: var(--dc-navy); }
+  .tool-link-text p { font-size: 11px; color: var(--dc-gray); }
+
+  /* ── CTA ── */
+  .cta { background: linear-gradient(135deg, var(--dc-navy) 0%, var(--dc-blue) 100%); color: var(--dc-white); text-align: center; }
+  .cta h2 { color: var(--dc-white); font-size: clamp(26px, 3.5vw, 36px); }
+  .cta p { font-size: 17px; opacity: .9; max-width: 600px; margin: 16px auto 36px; line-height: 1.7; }
+  .cta .btn-coral { background: var(--dc-coral); color: var(--dc-white); }
+  .cta .btn-ghost { background: transparent; border: 2px solid rgba(255,255,255,.5); color: var(--dc-white); margin-left: 16px; }
+
+  /* ── FOOTER ── */
+  footer { background: var(--dc-navy); color: rgba(255,255,255,.6); padding: 40px; text-align: center; font-size: 13px; }
+  footer a { color: rgba(255,255,255,.8); text-decoration: none; margin: 0 12px; }
+  footer a:hover { color: var(--dc-white); }
+  .footer-links { margin-bottom: 16px; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .benefits-grid { grid-template-columns: 1fr 1fr; }
+    .problem-cols, .template-grid, .gs-grid, .compare-grid { grid-template-columns: 1fr; }
+    .ui-screens { grid-template-columns: 1fr 1fr; }
+    .sp-responsibilities { grid-template-columns: 1fr; }
+    .highlight-box { flex-direction: column; gap: 20px; }
+    .highlight-box .hl-num { font-size: 56px; }
+    .stat-bar { flex-wrap: wrap; }
+    .stat-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,.2); width: 50%; }
+  }
+  @media (max-width: 600px) {
+    header { padding: 0 20px; }
+    section { padding: 48px 20px; }
+    .hero { padding: 60px 20px 48px; }
+    .benefits-grid, .ui-screens, .tool-links { grid-template-columns: 1fr; }
+    nav { display: none; }
+    .stat-item { width: 100%; }
+    .btn-outline { display: none; }
+    .adopter-logos { gap: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header>
+  <a class="logo" href="#">Domain<span>Connect</span></a>
+  <nav>
+    <a href="#">About</a>
+    <a href="#">Getting Started</a>
+    <a href="#" class="active">Service Providers</a>
+    <a href="#">DNS Providers</a>
+    <a href="#">Get Involved</a>
+    <a href="#">Spec &amp; Code</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">For Service Providers &amp; SaaS Platforms</div>
+  <h1>Stop Losing Customers<br><span>to DNS Configuration Friction</span></h1>
+  <p>50% of users give up trying to connect their domain to your service. Domain Connect eliminates the setup barrier with a one-click, user-authorized DNS integration — no technical knowledge required from your customers.</p>
+  <a href="#get-started" class="btn btn-primary">Create Your Template</a>
+  <a href="#how-it-works" class="btn btn-outline">See the Flow</a>
+</section>
+
+<!-- ADOPTER STRIP -->
+<div class="adopter-strip">
+  <div class="adopter-label">Already using Domain Connect</div>
+  <div class="adopter-logos">
+    <div class="adopter-logo">Email Providers</div>
+    <div class="adopter-logo">Website Builders</div>
+    <div class="adopter-logo">eCommerce Platforms</div>
+    <div class="adopter-logo">Productivity Suites</div>
+    <div class="adopter-logo">Cloud Hosting</div>
+    <div class="adopter-logo">CMS Platforms</div>
+    <div class="adopter-logo">120+ services</div>
+  </div>
+</div>
+
+<!-- STAT BAR -->
+<div class="stat-bar">
+  <div class="stat-item">
+    <span class="stat-num">~50%</span>
+    <span class="stat-label">abandon manual DNS setup</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">35%</span>
+    <span class="stat-label">of registered domains already supported</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">300+</span>
+    <span class="stat-label">templates in production</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">&lt;60s</span>
+    <span class="stat-label">typical setup time with DC</span>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section class="problem">
+  <div class="container">
+    <p class="section-label">The Problem</p>
+    <h2>Your Customer Journey Has a Broken Step</h2>
+    <p class="lead">You've built a great product. Your user signs up. They're excited. Then you ask them to configure DNS — and nearly half of them never come back. DNS setup is the silent conversion killer in every custom domain flow.</p>
+
+    <div class="problem-cols">
+      <div>
+        <div class="funnel">
+          <div class="funnel-title">📉 Custom Domain Onboarding Funnel</div>
+          <div class="funnel-step">
+            <div class="funnel-bar f100">Started setup <span>100%</span></div>
+          </div>
+          <div class="funnel-step">
+            <div class="funnel-bar f85">Opened DNS help docs <span>~85%</span></div>
+          </div>
+          <div class="funnel-step">
+            <div class="funnel-bar f70">Attempted DNS changes <span>~70%</span></div>
+          </div>
+          <div class="funnel-step">
+            <div class="funnel-bar f50" style="background:var(--dc-coral);">Successfully connected domain <span>~50%</span></div>
+          </div>
+          <div class="funnel-note">
+            Typical service DNS setup: 6-step process, 7–15 DNS entries, registrar-specific help articles or 40 min of training. ~50% of users abandon the process.
+          </div>
+        </div>
+      </div>
+      <div class="pain-blocks">
+        <div class="pain-block">
+          <div class="pain-block-icon">🆘</div>
+          <div>
+            <h4>Support Overload</h4>
+            <p>DNS errors and "my records didn't propagate" tickets dominate support queues for any product with a custom domain feature. Each ticket is expensive and frustrating for both sides.</p>
+          </div>
+        </div>
+        <div class="pain-block">
+          <div class="pain-block-icon">🔄</div>
+          <div>
+            <h4>Repeat Work Per Registrar</h4>
+            <p>You write and maintain separate help documentation for each registrar and DNS provider. Each update to your infrastructure means updating a dozen help articles.</p>
+          </div>
+        </div>
+        <div class="pain-block">
+          <div class="pain-block-icon">❌</div>
+          <div>
+            <h4>Configuration Errors Kill Retention</h4>
+            <p>A user who misconfigures DNS — setting an MX record wrong or forgetting a CNAME — may never figure out why their service doesn't work, leading to cancellation rather than asking for help.</p>
+          </div>
+        </div>
+        <div class="pain-block">
+          <div class="pain-block-icon">🌐</div>
+          <div>
+            <h4>IP Changes Break Customer Zones</h4>
+            <p>When your infrastructure changes, customers with manual configurations must manually update records. Most don't, causing outages they blame on your service.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section class="benefits-sp">
+  <div class="container">
+    <p class="section-label">Benefits</p>
+    <h2>What Domain Connect Does for Your Business</h2>
+    <p class="lead">One template. One integration. Automatic custom domain setup for all customers whose DNS provider supports Domain Connect — covering 35% of registered domains and growing.</p>
+
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <div class="benefit-icon">🚀</div>
+        <h3>Higher Custom Domain Activation</h3>
+        <p>Remove the biggest barrier to activation. Users click one button, approve the change in their DNS provider's familiar interface, and are done. No DNS knowledge required.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">🤖</div>
+        <h3>Zero Ongoing Maintenance</h3>
+        <p>With the async OAuth flow, your service can push DNS updates directly to customer zones as your infrastructure evolves — no manual re-configuration, no outages, no re-onboarding.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">📉</div>
+        <h3>Fewer Support Tickets</h3>
+        <p>The most common DNS support issues (wrong record type, missing field, TTL confusion) simply can't happen with Domain Connect. Configuration is automated and correct by design.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">✍️</div>
+        <h3>Write One Template, Not Dozens of Guides</h3>
+        <p>Instead of maintaining registrar-specific help docs, you publish a single JSON template that works across all Domain Connect-enabled DNS providers. Update once, update everywhere.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">🔐</div>
+        <h3>User-Controlled Authorization</h3>
+        <p>Customers authorize changes through their own DNS provider's interface — a familiar, trusted environment. Your service only modifies the specific records defined in your template. No over-reaching permissions.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">🌍</div>
+        <h3>Instant Access to 35% of Registered Domains</h3>
+        <p>One template works across all Domain Connect-enabled DNS providers. Your integration grows automatically as new providers join the network — no additional engineering needed.</p>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <div class="hl-num">50%</div>
+      <div>
+        <h3>of users abandon manual DNS setup — Domain Connect turns that abandonment into activation</h3>
+        <p>The DNS configuration step is where custom domain onboarding breaks down. Domain Connect transforms it from a multi-step, error-prone process into a single user-authorized click — taking the average setup time from 40 minutes (with ~50% failure rate) to under 60 seconds with near-100% success.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- USER EXPERIENCE -->
+<section class="ux-section">
+  <div class="container">
+    <p class="section-label">User Experience</p>
+    <h2>Before and After: The Custom Domain Flow</h2>
+    <p class="lead">See how Domain Connect transforms the user experience — from a frustrating multi-day ordeal into a seamless, seconds-long approval flow your customers will love.</p>
+
+    <div class="compare-grid">
+      <div class="compare-col">
+        <div class="compare-header bad">❌ Without Domain Connect</div>
+        <div class="compare-body">
+          <div class="compare-step">
+            <div class="cs-icon">📧</div>
+            <div class="cs-text">Receive email with list of DNS records to configure manually</div>
+            <div class="cs-time">Day 1</div>
+          </div>
+          <div class="compare-step">
+            <div class="cs-icon">🔍</div>
+            <div class="cs-text">Search for registrar-specific help docs, find 3 conflicting guides</div>
+            <div class="cs-time">+20 min</div>
+          </div>
+          <div class="compare-step">
+            <div class="cs-icon">😕</div>
+            <div class="cs-text">Attempt to find MX record field in DNS panel, unsure of correct syntax</div>
+            <div class="cs-time">+25 min</div>
+          </div>
+          <div class="compare-step">
+            <div class="cs-icon">⌛</div>
+            <div class="cs-text">Wait 24-48 hours for "propagation" — unclear if setup was correct</div>
+            <div class="cs-time">Day 2–3</div>
+          </div>
+          <div class="compare-step">
+            <div class="cs-icon">🆘</div>
+            <div class="cs-text">Service still doesn't work. Submit support ticket.</div>
+            <div class="cs-time">Day 4</div>
+          </div>
+          <div class="compare-step">
+            <div class="cs-icon">🚪</div>
+            <div class="cs-text">~50% give up entirely and abandon the setup</div>
+            <div class="cs-time">—</div>
+          </div>
+        </div>
+        <div class="compare-footer bad">😫 ~50% failure rate · 40+ minutes · Multiple support tickets</div>
+      </div>
+      <div class="compare-col">
+        <div class="compare-header good">✅ With Domain Connect</div>
+        <div class="compare-body">
+          <div class="compare-step">
+            <div class="cs-icon">🌐</div>
+            <div class="cs-text">Enter domain name in your service UI. "Connect Automatically" button appears.</div>
+            <div class="cs-time">0 sec</div>
+          </div>
+          <div class="compare-step">
+            <div class="cs-icon">🔑</div>
+            <div class="cs-text">Redirected to familiar DNS provider login. Sign in with known credentials.</div>
+            <div class="cs-time">+15 sec</div>
+          </div>
+          <div class="compare-step">
+            <div class="cs-icon">👁️</div>
+            <div class="cs-text">Clear consent screen shows exactly which records will change. No technical jargon required.</div>
+            <div class="cs-time">+10 sec</div>
+          </div>
+          <div class="compare-step">
+            <div class="cs-icon">✅</div>
+            <div class="cs-text">Click "Connect". DNS is configured instantly and correctly.</div>
+            <div class="cs-time">+5 sec</div>
+          </div>
+          <div class="compare-step">
+            <div class="cs-icon">🎉</div>
+            <div class="cs-text">Redirected back to your service. Domain is active. User starts working.</div>
+            <div class="cs-time">+30 sec</div>
+          </div>
+        </div>
+        <div class="compare-footer good">🎉 ~100% success rate · &lt;60 seconds · Zero support tickets</div>
+      </div>
+    </div>
+
+    <!-- UI Flow screens -->
+    <div class="ui-flow">
+      <div class="ui-flow-title">The 4-Screen Flow Your Customers Experience</div>
+      <div class="ui-screens">
+        <div class="ui-screen">
+          <div class="ui-screen-top"><div class="ui-dot r"></div><div class="ui-dot y"></div><div class="ui-dot g"></div></div>
+          <div class="ui-screen-body">
+            <div class="ui-step-label">Step 1 · Your app</div>
+            <div style="font-size:12px; font-weight:700; color:var(--dc-navy); margin-bottom:8px;">Connect existing domain</div>
+            <div class="ui-mock-input">yourdomain.example</div>
+            <div class="ui-mock-btn">Next →</div>
+          </div>
+        </div>
+        <div class="ui-screen">
+          <div class="ui-screen-top"><div class="ui-dot r"></div><div class="ui-dot y"></div><div class="ui-dot g"></div></div>
+          <div class="ui-screen-body">
+            <div class="ui-step-label">Step 2 · Your app detects DC</div>
+            <div class="ui-provider-row">
+              <div class="ui-provider-icon">🏢</div>
+              <div>
+                <div class="ui-provider-name">DNS provider detected</div>
+                <div class="ui-provider-sub">Quick and secure setup</div>
+              </div>
+            </div>
+            <div class="ui-mock-btn auto">Connect automatically</div>
+          </div>
+        </div>
+        <div class="ui-screen">
+          <div class="ui-screen-top"><div class="ui-dot r"></div><div class="ui-dot y"></div><div class="ui-dot g"></div></div>
+          <div class="ui-screen-body">
+            <div class="ui-step-label">Step 3 · DNS provider UI</div>
+            <div style="font-size:11px; color:var(--dc-navy); font-weight:700; margin-bottom:8px;">Domain Connect</div>
+            <div style="font-size:10px; color:var(--dc-gray); margin-bottom:10px;">Connect <strong>yourdomain.example</strong> to Your Service</div>
+            <div style="font-size:9px; border: 1px solid var(--dc-sky); border-radius:4px; overflow:hidden; margin-bottom:10px;">
+              <div style="background:var(--dc-light); padding:4px 8px; font-weight:700;">TYPE</div>
+              <div style="padding:4px 8px;">A → 132.148.0.1</div>
+              <div style="padding:4px 8px; border-top:1px solid var(--dc-sky);">TXT → verify=abc123</div>
+            </div>
+            <div class="ui-mock-btn connect">Connect</div>
+          </div>
+        </div>
+        <div class="ui-screen">
+          <div class="ui-screen-top"><div class="ui-dot r"></div><div class="ui-dot y"></div><div class="ui-dot g"></div></div>
+          <div class="ui-screen-body">
+            <div class="ui-step-label">Step 4 · Back in your app</div>
+            <div class="ui-check">✅</div>
+            <div class="ui-check-text">Domain connected!</div>
+            <div class="ui-check-sub">yourdomain.example is now pointing to your service. You're all set.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-it-works" id="how-it-works">
+  <div class="container">
+    <p class="section-label" style="color:rgba(255,102,99,.9);">Technical Flow</p>
+    <h2>How Domain Connect Works</h2>
+    <p class="lead">As a service provider, you define a template and trigger the flow. The DNS provider handles authentication, consent, and record changes. Your users authorize everything — nothing happens without their click.</p>
+
+    <div class="flow-diagram">
+      <div class="flow-row">
+        <div class="flow-actor">
+          <div class="flow-icon">👤</div>
+          <div class="flow-name">User</div>
+          <div class="flow-desc">Enters domain name in your app. Initiates connection. Authenticates at DNS provider. Approves the consent screen.</div>
+        </div>
+        <div class="flow-arrow">
+          →<br>→<br>
+          <span class="flow-arrow-label">initiates + approves</span>
+        </div>
+        <div class="flow-actor">
+          <div class="flow-icon">⚙️</div>
+          <div class="flow-name">Your Service</div>
+          <div class="flow-desc">Looks up _domainconnect record. Fetches discovery document. Constructs redirect URL with template ID + variable values. Receives callback on completion.</div>
+        </div>
+        <div class="flow-arrow">
+          →<br>→<br>
+          <span class="flow-arrow-label">redirect + template</span>
+        </div>
+        <div class="flow-actor">
+          <div class="flow-icon">🏗️</div>
+          <div class="flow-name">DNS Provider</div>
+          <div class="flow-desc">Authenticates user. Shows consent UI with exact changes. On approval, applies the template to the DNS zone. Returns user to your app.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sp-responsibilities">
+      <div class="resp-item">
+        <div class="resp-icon">📋</div>
+        <div>
+          <h4>Your Job: Write a Template</h4>
+          <p>A JSON file declaring exactly which DNS records your service needs. Publish it to the Domain Connect template registry. That's your primary implementation task.</p>
+        </div>
+      </div>
+      <div class="resp-item">
+        <div class="resp-icon">🔗</div>
+        <div>
+          <h4>Your Job: Trigger the Sync Flow</h4>
+          <p>When a user enters their domain, look up <code style="color:var(--dc-sky);">_domainconnect</code> TXT, fetch the discovery document, and redirect to the consent URL with your template's variable values.</p>
+        </div>
+      </div>
+      <div class="resp-item">
+        <div class="resp-icon">🔑</div>
+        <div>
+          <h4>Optional: OAuth Async Flow</h4>
+          <p>Request an OAuth token scoped to your template. Use it to push DNS updates automatically whenever your service infrastructure changes — IP rotations, new subdomains, etc.</p>
+        </div>
+      </div>
+      <div class="resp-item">
+        <div class="resp-icon">🔒</div>
+        <div>
+          <h4>Optional: Sign Your URLs</h4>
+          <p>Add cryptographic signatures to redirect URLs so DNS providers can verify requests are genuinely from your service, not a replay or tampering attack.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEMPLATE CREATION GUIDE -->
+<section class="template-section">
+  <div class="container">
+    <p class="section-label">Template Guide</p>
+    <h2>Writing Your Domain Connect Template</h2>
+    <p class="lead">A template is a JSON file you publish to the open template registry. It's the only thing that describes what DNS changes your service needs — DNS providers use it to apply the right records.</p>
+
+    <div class="template-grid">
+      <div class="code-block">
+        <div class="code-bar">
+          <div class="code-dot r"></div><div class="code-dot y"></div><div class="code-dot g"></div>
+          <span style="margin-left:12px;">your-service-template.json</span>
+        </div>
+        <pre>{
+  <span class="json-comment">// Who you are</span>
+  <span class="json-key">"providerId"</span>: <span class="json-str">"yourservice.example"</span>,
+  <span class="json-key">"serviceId"</span>: <span class="json-str">"email"</span>,
+  <span class="json-key">"providerName"</span>: <span class="json-str">"Your Service Inc."</span>,
+  <span class="json-key">"serviceName"</span>: <span class="json-str">"Business Email"</span>,
+  <span class="json-key">"version"</span>: 1,
+
+  <span class="json-comment">// Shown to users in consent UI</span>
+  <span class="json-key">"logoUrl"</span>: <span class="json-str">"https://yourservice.example/logo.png"</span>,
+  <span class="json-key">"description"</span>: <span class="json-str">"Configure email for your domain"</span>,
+
+  <span class="json-comment">// Where users return after setup</span>
+  <span class="json-key">"syncRedirectDomain"</span>: <span class="json-str">"yourservice.example"</span>,
+
+  <span class="json-comment">// The DNS records you need</span>
+  <span class="json-key">"records"</span>: [
+    {
+      <span class="json-key">"type"</span>: <span class="json-str">"MX"</span>,
+      <span class="json-key">"host"</span>: <span class="json-str">"@"</span>,
+      <span class="json-key">"pointsTo"</span>: <span class="json-str">"mail.yourservice.example"</span>,
+      <span class="json-key">"priority"</span>: 10,
+      <span class="json-key">"ttl"</span>: 3600
+    },
+    {
+      <span class="json-key">"type"</span>: <span class="json-str">"TXT"</span>,
+      <span class="json-key">"host"</span>: <span class="json-str">"@"</span>,
+      <span class="json-key">"data"</span>: <span class="json-str">"v=spf1 include:spf.%IP% ~all"</span>,
+      <span class="json-comment">// Merge with existing SPF records</span>
+      <span class="json-key">"txtConflictMatchingMode"</span>: <span class="json-str">"Prefix"</span>,
+      <span class="json-key">"txtConflictMatchingPrefix"</span>: <span class="json-str">"v=spf1"</span>,
+      <span class="json-key">"ttl"</span>: 3600
+    },
+    {
+      <span class="json-comment">// Ephemeral – safe to remove after template is applied</span>
+      <span class="json-key">"type"</span>: <span class="json-str">"TXT"</span>,
+      <span class="json-key">"host"</span>: <span class="json-str">"@"</span>,
+      <span class="json-key">"data"</span>: <span class="json-str">"%VERIFY%"</span>,
+      <span class="json-key">"ttl"</span>: 300,
+      <span class="json-key">"essential"</span>: <span class="json-num">"OnApply"</span>
+    }
+  ]
+}</pre>
+      </div>
+      <div class="template-guide">
+        <div class="tg-item">
+          <div class="tg-icon">🆔</div>
+          <div>
+            <h4>Provider &amp; Service Identity</h4>
+            <p><code>providerId</code> should be your domain name. <code>serviceId</code> is a short identifier for this specific integration (e.g., "email", "website", "ssl"). Together they uniquely identify your template.</p>
+          </div>
+        </div>
+        <div class="tg-item">
+          <div class="tg-icon">🖼️</div>
+          <div>
+            <h4>Display Metadata</h4>
+            <p>Your <code>logoUrl</code>, <code>providerName</code>, and <code>serviceName</code> appear in the DNS provider's consent UI. Keep them clear and recognizable so users trust the authorization screen.</p>
+          </div>
+        </div>
+        <div class="tg-item">
+          <div class="tg-icon">📝</div>
+          <div>
+            <h4>Variable Substitution</h4>
+            <p>Use <code>%VARNAME%</code> tokens for values you pass at runtime (IP addresses, verification tokens, user-specific values). These are passed as query parameters in your redirect URL.</p>
+          </div>
+        </div>
+        <div class="tg-item">
+          <div class="tg-icon">🔀</div>
+          <div>
+            <h4>SPF Merging &amp; Conflict Resolution</h4>
+            <p>Use <code>txtConflictMatchingMode: "Prefix"</code> for SPF records to ensure your record is merged with existing SPF — not overwriting a customer's other email service settings.</p>
+          </div>
+        </div>
+        <div class="tg-item">
+          <div class="tg-icon">⏱️</div>
+          <div>
+            <h4>Ephemeral Records</h4>
+            <p>Records marked as ephemeral can be removed after the template has been applied, without triggering any conflict rules. This makes them safe to clean up at any point — the DNS provider deletes them automatically once the template application is complete, keeping zones tidy.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GET STARTED -->
+<section class="get-started" id="get-started">
+  <div class="container">
+    <p class="section-label">Implementation Guide</p>
+    <h2>How to Add Domain Connect to Your Service</h2>
+    <p class="lead">Implementation is straightforward — your main task is writing a template. The DNS providers handle the hard parts: authentication, consent UI, and DNS zone management.</p>
+
+    <div class="gs-grid">
+      <div class="card-steps">
+        <div class="card-step">
+          <div class="card-step-num">1</div>
+          <div>
+            <h3>Understand the Specification</h3>
+            <p>Read the IETF draft (draft-kowalik-domainconnect) to understand the full protocol — especially the discovery flow, sync vs. async flows, and how template variables work.</p>
+            <a href="https://datatracker.ietf.org/wg/dconn/about/">→ IETF DCONN Working Group</a>
+          </div>
+        </div>
+        <div class="card-step">
+          <div class="card-step-num">2</div>
+          <div>
+            <h3>Write Your Template</h3>
+            <p>Create a JSON template file declaring the DNS records your service needs. Study existing templates in the public registry as a reference — they cover a wide range of service types.</p>
+            <a href="https://github.com/domain-connect/Templates">→ Template Registry (GitHub)</a>
+          </div>
+        </div>
+        <div class="card-step">
+          <div class="card-step-num">3</div>
+          <div>
+            <h3>Submit to Template Registry</h3>
+            <p>Open a pull request to the domain-connect/Templates GitHub repository. Your template will be available to all DNS providers once merged.</p>
+            <a href="https://github.com/domain-connect/Templates">→ Submit Your Template</a>
+          </div>
+        </div>
+        <div class="card-step">
+          <div class="card-step-num">4</div>
+          <div>
+            <h3>Implement the Discovery Lookup</h3>
+            <p>When a user enters their domain, query the DNS for <code>_domainconnect.{domain}</code> TXT record. If present, fetch the discovery document from that endpoint to get the DNS provider's API details.</p>
+          </div>
+        </div>
+        <div class="card-step">
+          <div class="card-step-num">5</div>
+          <div>
+            <h3>Build the Redirect &amp; Callback</h3>
+            <p>Construct the redirect URL with your template ID and runtime variable values (IP addresses, verification tokens). Handle the callback URL after the user approves the changes.</p>
+            <a href="https://github.com/domain-connect">→ Reference SDK Code</a>
+          </div>
+        </div>
+        <div class="card-step">
+          <div class="card-step-num">6</div>
+          <div>
+            <h3>(Optional) Implement OAuth for Updates</h3>
+            <p>For services that update infrastructure regularly, request an OAuth token during setup. Use it to push DNS changes directly to customer zones without requiring user re-authorization.</p>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="sp-checklist">
+          <h3>✅ Service Provider Checklist</h3>
+          <div class="check-item">
+            <span class="check-tick">✓</span>
+            <div>
+              <div>Template JSON written and validated</div>
+              <div class="check-note">Use the template validator tool to check syntax and required fields</div>
+            </div>
+          </div>
+          <div class="check-item">
+            <span class="check-tick">✓</span>
+            <div>
+              <div>Template submitted to public registry</div>
+              <div class="check-note">PR to domain-connect/Templates on GitHub</div>
+            </div>
+          </div>
+          <div class="check-item">
+            <span class="check-tick">✓</span>
+            <div>
+              <div>Discovery TXT lookup implemented</div>
+              <div class="check-note">Query _domainconnect.{userdomain} on domain entry</div>
+            </div>
+          </div>
+          <div class="check-item">
+            <span class="check-tick">✓</span>
+            <div>
+              <div>Discovery document fetch implemented</div>
+              <div class="check-note">GET /v2/domainTemplates/providers/{yourId} on DNS provider's API</div>
+            </div>
+          </div>
+          <div class="check-item">
+            <span class="check-tick">✓</span>
+            <div>
+              <div>Sync redirect URL construction working</div>
+              <div class="check-note">Correctly encodes template path + variable values + redirect URI</div>
+            </div>
+          </div>
+          <div class="check-item">
+            <span class="check-tick">✓</span>
+            <div>
+              <div>Callback/redirect handled in your app</div>
+              <div class="check-note">Verify domain is configured after user returns from DNS provider</div>
+            </div>
+          </div>
+          <div class="check-item">
+            <span class="check-tick">✓</span>
+            <div>
+              <div>Listed on domainconnect.org service providers page</div>
+              <div class="check-note">Increases visibility and trust with DNS provider adopters</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tool-links">
+          <a href="https://github.com/domain-connect" class="tool-link">
+            <div class="tool-link-icon">💻</div>
+            <div class="tool-link-text"><h4>SDK Libraries</h4><p>Python, Node, PHP reference code</p></div>
+          </a>
+          <a href="https://github.com/domain-connect/Templates" class="tool-link">
+            <div class="tool-link-icon">📋</div>
+            <div class="tool-link-text"><h4>Template Examples</h4><p>Browse the public template registry</p></div>
+          </a>
+          <a href="https://www.domainconnect.org/spec/" class="tool-link">
+            <div class="tool-link-icon">📄</div>
+            <div class="tool-link-text"><h4>Full Specification</h4><p>Complete API and schema reference</p></div>
+          </a>
+          <a href="https://mailman3.ietf.org/mailman3/lists/dconn.ietf.org/" class="tool-link">
+            <div class="tool-link-icon">💬</div>
+            <div class="tool-link-text"><h4>IETF Mailing List</h4><p>Protocol questions &amp; updates</p></div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="container">
+    <h2>Ready to Stop Losing Customers at the DNS Step?</h2>
+    <p>Join 120+ service providers who've turned DNS configuration from a barrier into a seamless one-click experience — for their customers and their support teams.</p>
+    <a href="https://github.com/domain-connect/Templates" class="btn btn-coral">Submit Your Template</a>
+    <a href="https://www.domainconnect.org/service-providers/" class="btn btn-ghost">View Service Providers List</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-links">
+    <a href="https://www.domainconnect.org/">domainconnect.org</a>
+    <a href="https://github.com/domain-connect">GitHub</a>
+    <a href="https://datatracker.ietf.org/wg/dconn/about/">IETF DCONN</a>
+    <a href="https://www.domainconnect.org/spec/">Specification</a>
+  </div>
+  <p>© 2025 Domain Connect. Open Standard — Creative Commons CC0.</p>
+</footer>
+
+</body>
+</html>

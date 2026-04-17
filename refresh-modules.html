@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Domain Connect – Benefit Modules (refresh.domainconnect.org)</title>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ── RESET & TOKENS ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --dc-navy:   #03263B;
+    --dc-blue:   #0b3954;
+    --dc-sky:    #bddae6;
+    --dc-coral:  #ff6663;
+    --dc-white:  #ffffff;
+    --dc-light:  #f5f8fa;
+    --dc-gray:   #686868;
+    --dc-text:   #252525;
+    --radius:    8px;
+    --shadow:    0 4px 24px rgba(3,38,59,.12);
+  }
+
+  body {
+    font-family: 'Open Sans', sans-serif;
+    color: var(--dc-text);
+    background: #e8ecef;
+    padding: 48px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+  }
+
+  /* ── PREVIEW LABEL ── */
+  .preview-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: #999;
+    text-align: center;
+    margin-bottom: -40px;
+  }
+
+  /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     MODULE 1 – DNS PROVIDER BENEFITS
+     Designed for homepage embed. Standalone <section> element.
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+  .module-dns {
+    background: var(--dc-white);
+    overflow: hidden;
+    /* No border-radius/shadow here — host page provides container */
+  }
+
+  /* Section intro */
+  .module-dns .mod-intro {
+    background: linear-gradient(135deg, var(--dc-navy) 0%, var(--dc-blue) 100%);
+    padding: 72px 40px 56px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .module-dns .mod-intro::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 0; right: 0;
+    height: 48px;
+    background: var(--dc-white);
+    clip-path: ellipse(55% 100% at 50% 100%);
+  }
+  .mod-eyebrow {
+    display: inline-block;
+    background: rgba(189,218,230,.15);
+    border: 1px solid rgba(189,218,230,.35);
+    color: var(--dc-sky);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+  }
+  .mod-intro h2 {
+    font-size: clamp(26px, 3.5vw, 40px);
+    font-weight: 700;
+    color: var(--dc-white);
+    line-height: 1.2;
+    max-width: 700px;
+    margin: 0 auto 16px;
+  }
+  .mod-intro h2 em {
+    font-style: normal;
+    color: var(--dc-sky);
+  }
+  .mod-intro p {
+    font-size: 17px;
+    color: rgba(255,255,255,.78);
+    max-width: 560px;
+    margin: 0 auto;
+    line-height: 1.65;
+  }
+
+  /* Stat ribbon */
+  .dns-stats {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    border-bottom: 1px solid var(--dc-sky);
+    flex-wrap: wrap;
+  }
+  .dns-stats .stat {
+    flex: 1;
+    min-width: 180px;
+    padding: 28px 24px;
+    text-align: center;
+    border-right: 1px solid var(--dc-sky);
+  }
+  .dns-stats .stat:last-child { border-right: none; }
+  .dns-stats .stat-num {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--dc-navy);
+    line-height: 1;
+    display: block;
+  }
+  .dns-stats .stat-num span { color: var(--dc-coral); }
+  .dns-stats .stat-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--dc-gray);
+    margin-top: 6px;
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+  }
+
+  /* Benefit cards */
+  .dns-benefits {
+    padding: 64px 40px 56px;
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  .dns-benefits h3 {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--dc-coral);
+    margin-bottom: 8px;
+    text-align: center;
+  }
+  .dns-benefits .section-title {
+    font-size: clamp(22px, 2.5vw, 30px);
+    font-weight: 700;
+    color: var(--dc-navy);
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .benefit-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .benefit-card {
+    background: var(--dc-white);
+    border: 1px solid var(--dc-sky);
+    border-radius: 14px;
+    padding: 32px 28px;
+    transition: transform .15s, box-shadow .15s;
+    position: relative;
+    overflow: hidden;
+  }
+  .benefit-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--dc-navy), var(--dc-coral));
+    opacity: 0;
+    transition: opacity .15s;
+  }
+  .benefit-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(3,38,59,.14); }
+  .benefit-card:hover::before { opacity: 1; }
+
+  .benefit-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 13px;
+    background: linear-gradient(135deg, var(--dc-navy), var(--dc-blue));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+    font-size: 22px;
+  }
+  .benefit-card h4 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--dc-navy);
+    margin-bottom: 10px;
+  }
+  .benefit-card p {
+    font-size: 14px;
+    color: var(--dc-gray);
+    line-height: 1.65;
+  }
+  .benefit-card .highlight-num {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--dc-coral);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  /* Visual diagram — protocol flow */
+  .dns-diagram {
+    background: var(--dc-light);
+    border-top: 1px solid var(--dc-sky);
+    border-bottom: 1px solid var(--dc-sky);
+    padding: 56px 40px;
+  }
+  .dns-diagram-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: center;
+  }
+  .dns-diagram-text h3 {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--dc-coral);
+    margin-bottom: 8px;
+  }
+  .dns-diagram-text h2 {
+    font-size: clamp(20px, 2.2vw, 28px);
+    font-weight: 700;
+    color: var(--dc-navy);
+    line-height: 1.3;
+    margin-bottom: 16px;
+  }
+  .dns-diagram-text p {
+    font-size: 15px;
+    color: var(--dc-gray);
+    line-height: 1.7;
+    margin-bottom: 24px;
+  }
+  .dns-flow-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .dns-flow-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .dns-step-num {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    border-radius: 50%;
+    background: var(--dc-navy);
+    color: var(--dc-white);
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+  }
+  .dns-step-text strong {
+    font-size: 14px;
+    color: var(--dc-navy);
+    display: block;
+    margin-bottom: 2px;
+  }
+  .dns-step-text span {
+    font-size: 13px;
+    color: var(--dc-gray);
+  }
+
+  /* CSS-only diagram of the technical flow */
+  .flow-diagram {
+    background: var(--dc-white);
+    border-radius: 16px;
+    border: 1px solid var(--dc-sky);
+    box-shadow: var(--shadow);
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .flow-actor {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    border-radius: 10px;
+    background: var(--dc-light);
+    border: 1px solid var(--dc-sky);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--dc-navy);
+  }
+  .flow-actor-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    flex-shrink: 0;
+  }
+  .flow-actor-icon.user   { background: #e8f4f8; }
+  .flow-actor-icon.sp     { background: #fdecea; }
+  .flow-actor-icon.dns    { background: #e8f8ee; }
+  .flow-connector {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 30px;
+    gap: 0;
+  }
+  .flow-arrow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 0;
+    position: relative;
+  }
+  .flow-arrow::before {
+    content: '';
+    position: absolute;
+    left: 17px;
+    top: 0; bottom: 0;
+    width: 2px;
+    background: var(--dc-sky);
+    z-index: 0;
+  }
+  .flow-arrow-dot {
+    width: 10px;
+    height: 10px;
+    min-width: 10px;
+    border-radius: 50%;
+    background: var(--dc-coral);
+    border: 2px solid var(--dc-white);
+    box-shadow: 0 0 0 2px var(--dc-coral);
+    z-index: 1;
+    margin-left: 13px;
+  }
+  .flow-arrow-label {
+    font-size: 12px;
+    color: var(--dc-gray);
+    background: var(--dc-white);
+    padding: 2px 8px;
+    border-radius: 4px;
+    border: 1px solid var(--dc-sky);
+    white-space: nowrap;
+  }
+  .flow-arrow-label strong {
+    color: var(--dc-navy);
+    font-weight: 600;
+  }
+
+  /* DNS CTA */
+  .dns-cta {
+    padding: 56px 40px;
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .dns-cta h2 {
+    font-size: clamp(22px, 2.5vw, 30px);
+    font-weight: 700;
+    color: var(--dc-navy);
+    margin-bottom: 12px;
+  }
+  .dns-cta p {
+    font-size: 16px;
+    color: var(--dc-gray);
+    margin-bottom: 28px;
+    line-height: 1.6;
+  }
+  .btn {
+    display: inline-block;
+    padding: 14px 28px;
+    border-radius: var(--radius);
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: opacity .15s, transform .1s;
+    cursor: pointer;
+    border: none;
+  }
+  .btn:hover { opacity: .88; transform: translateY(-1px); }
+  .btn-coral { background: var(--dc-coral); color: var(--dc-white); }
+  .btn-navy  { background: var(--dc-navy); color: var(--dc-white); }
+  .btn-outline { background: transparent; color: var(--dc-navy); border: 2px solid var(--dc-navy); }
+  .btn + .btn { margin-left: 12px; }
+
+  /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     MODULE 2 – SERVICE PROVIDER BENEFITS
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+  .module-sp {
+    background: var(--dc-white);
+    overflow: hidden;
+  }
+
+  /* Header band */
+  .module-sp .mod-intro {
+    background: linear-gradient(135deg, #2c0a0a 0%, #5a1a1a 45%, #8b2020 100%);
+    padding: 72px 40px 56px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .module-sp .mod-intro::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .module-sp .mod-intro::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 0; right: 0;
+    height: 48px;
+    background: var(--dc-white);
+    clip-path: ellipse(55% 100% at 50% 100%);
+  }
+  .module-sp .mod-eyebrow {
+    background: rgba(255,102,99,.15);
+    border-color: rgba(255,102,99,.4);
+    color: #ffb3b2;
+  }
+  .module-sp .mod-intro h2 em {
+    color: #ffb3b2;
+  }
+
+  /* Adopter logos strip */
+  .sp-adopters {
+    background: var(--dc-light);
+    border-bottom: 1px solid var(--dc-sky);
+    padding: 20px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px 0;
+  }
+  .sp-adopters-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--dc-gray);
+    margin-right: 20px;
+    white-space: nowrap;
+  }
+  .sp-adopters-logos {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .adopter-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--dc-white);
+    border: 1px solid var(--dc-sky);
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--dc-navy);
+  }
+  .adopter-pill .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* Stats strip */
+  .sp-stats {
+    display: flex;
+    justify-content: center;
+    border-bottom: 2px solid var(--dc-sky);
+    flex-wrap: wrap;
+  }
+  .sp-stats .stat {
+    flex: 1;
+    min-width: 180px;
+    padding: 24px 20px;
+    text-align: center;
+    border-right: 1px solid var(--dc-sky);
+    background: #fff9f9;
+  }
+  .sp-stats .stat:last-child { border-right: none; }
+  .sp-stats .stat-num {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--dc-coral);
+    line-height: 1;
+    display: block;
+  }
+  .sp-stats .stat-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--dc-gray);
+    margin-top: 6px;
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+  }
+
+  /* SP benefit cards */
+  .sp-benefits {
+    padding: 64px 40px 48px;
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  .sp-benefits h3 {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--dc-coral);
+    margin-bottom: 8px;
+    text-align: center;
+  }
+  .sp-benefits .section-title {
+    font-size: clamp(22px, 2.5vw, 30px);
+    font-weight: 700;
+    color: var(--dc-navy);
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  .sp-benefits .section-lead {
+    font-size: 16px;
+    color: var(--dc-gray);
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto 48px;
+    line-height: 1.65;
+  }
+
+  .sp-benefit-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 36px;
+  }
+
+  .sp-benefit-card {
+    border-radius: 14px;
+    padding: 32px 28px;
+    border: 1px solid;
+    transition: transform .15s, box-shadow .15s;
+  }
+  .sp-benefit-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(3,38,59,.12); }
+  .sp-benefit-card.coral-border { border-color: rgba(255,102,99,.35); background: #fff9f9; }
+  .sp-benefit-card.navy-border  { border-color: var(--dc-sky); background: var(--dc-white); }
+  .sp-benefit-card .sp-icon {
+    width: 52px; height: 52px;
+    border-radius: 13px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    margin-bottom: 18px;
+  }
+  .sp-benefit-card.coral-border .sp-icon { background: linear-gradient(135deg, #5a1a1a, #8b2020); }
+  .sp-benefit-card.navy-border  .sp-icon { background: linear-gradient(135deg, var(--dc-navy), var(--dc-blue)); }
+  .sp-benefit-card h4 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--dc-navy);
+    margin-bottom: 10px;
+  }
+  .sp-benefit-card p { font-size: 14px; color: var(--dc-gray); line-height: 1.65; }
+
+  /* Big callout highlight */
+  .sp-highlight-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 0;
+  }
+  .sp-highlight {
+    border-radius: 14px;
+    padding: 32px 36px;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+  .sp-highlight.dark { background: linear-gradient(135deg, var(--dc-navy), var(--dc-blue)); }
+  .sp-highlight.coral { background: linear-gradient(135deg, #8b2020, var(--dc-coral)); }
+  .sp-highlight .big-num {
+    font-size: 56px;
+    font-weight: 700;
+    color: var(--dc-white);
+    line-height: 1;
+    white-space: nowrap;
+    opacity: .95;
+  }
+  .sp-highlight .big-num sub { font-size: 24px; vertical-align: bottom; }
+  .sp-highlight-text h4 { font-size: 16px; font-weight: 700; color: var(--dc-white); margin-bottom: 6px; }
+  .sp-highlight-text p  { font-size: 13px; color: rgba(255,255,255,.78); line-height: 1.6; }
+
+  /* Before / After */
+  .sp-compare {
+    background: var(--dc-light);
+    border-top: 1px solid var(--dc-sky);
+    border-bottom: 1px solid var(--dc-sky);
+    padding: 56px 40px;
+  }
+  .sp-compare-inner {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  .sp-compare h3 {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--dc-coral);
+    margin-bottom: 8px;
+    text-align: center;
+  }
+  .sp-compare h2 {
+    font-size: clamp(20px, 2.2vw, 28px);
+    font-weight: 700;
+    color: var(--dc-navy);
+    text-align: center;
+    margin-bottom: 36px;
+  }
+  .compare-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .compare-col {
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+  .compare-col-head {
+    padding: 18px 24px;
+    font-size: 15px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .compare-col-head.before { background: #fdecea; color: #c0392b; }
+  .compare-col-head.after  { background: #e8f8ee; color: #1e8449; }
+  .compare-col-body { background: var(--dc-white); }
+  .compare-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--dc-sky);
+  }
+  .compare-row:last-child { border-bottom: none; }
+  .compare-row .cr-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+  .compare-row .cr-text strong { font-size: 14px; color: var(--dc-navy); display: block; }
+  .compare-row .cr-text span  { font-size: 13px; color: var(--dc-gray); }
+  .compare-row .cr-time {
+    margin-left: auto;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .time-bad  { background: #fdecea; color: #c0392b; }
+  .time-good { background: #e8f8ee; color: #1e8449; }
+  .compare-col-footer {
+    padding: 14px 20px;
+    font-size: 13px;
+    font-weight: 700;
+    text-align: center;
+  }
+  .compare-col-footer.before { background: #fdecea; color: #c0392b; }
+  .compare-col-footer.after  { background: #e8f8ee; color: #1e8449; }
+
+  /* SP CTA */
+  .sp-cta {
+    padding: 56px 40px;
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .sp-cta h2 { font-size: clamp(22px, 2.5vw, 30px); font-weight: 700; color: var(--dc-navy); margin-bottom: 12px; }
+  .sp-cta p  { font-size: 16px; color: var(--dc-gray); margin-bottom: 28px; line-height: 1.6; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .benefit-grid,
+    .sp-benefit-grid { grid-template-columns: 1fr 1fr; }
+    .sp-highlight-row { grid-template-columns: 1fr; }
+    .dns-diagram-inner { grid-template-columns: 1fr; }
+    .compare-cols { grid-template-columns: 1fr; }
+    .sp-highlight .big-num { font-size: 44px; }
+  }
+  @media (max-width: 600px) {
+    .module-dns .mod-intro,
+    .module-sp .mod-intro { padding: 56px 24px 44px; }
+    .benefit-grid,
+    .sp-benefit-grid { grid-template-columns: 1fr; }
+    .dns-benefits,
+    .sp-benefits,
+    .dns-diagram,
+    .sp-compare,
+    .dns-cta,
+    .sp-cta { padding-left: 20px; padding-right: 20px; }
+    .dns-stats .stat,
+    .sp-stats .stat { min-width: 140px; }
+    .sp-adopters { padding: 16px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!--  HOW TO USE                                                      -->
+<!--  Copy the contents of each <section class="module-*"> element   -->
+<!--  directly into the refresh.domainconnect.org page template.     -->
+<!--  All styles are scoped to .module-dns / .module-sp classes.     -->
+<!--  The surrounding <body> and preview labels are for preview only. -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+
+<p class="preview-label">MODULE 1 — DNS PROVIDER BENEFITS</p>
+
+<!-- ════════════════════════════════════════════════════════════════
+     MODULE 1: DNS PROVIDER BENEFITS
+     Embed as a <section> on the refresh homepage.
+════════════════════════════════════════════════════════════════ -->
+<section class="module-dns">
+
+  <!-- Intro band -->
+  <div class="mod-intro">
+    <span class="mod-eyebrow">For DNS Providers &amp; Registrars</span>
+    <h2>Make Your DNS Platform <em>Indispensable</em> to Every Customer</h2>
+    <p>Domain Connect turns your DNS infrastructure into an active service-activation platform — reducing churn, eliminating support load, and opening new revenue channels with zero user friction.</p>
+  </div>
+
+  <!-- Stats ribbon -->
+  <div class="dns-stats">
+    <div class="stat">
+      <span class="stat-num">35<span>%</span></span>
+      <span class="stat-label">of registered domains already covered</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">~20</span>
+      <span class="stat-label">DNS providers integrated</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">300<span>+</span></span>
+      <span class="stat-label">service templates available</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">&lt;60<span>s</span></span>
+      <span class="stat-label">domain connection time</span>
+    </div>
+  </div>
+
+  <!-- Benefit cards -->
+  <div class="dns-benefits">
+    <h3>Why DNS Providers Adopt Domain Connect</h3>
+    <div class="section-title">Six ways Domain Connect strengthens your platform</div>
+
+    <div class="benefit-grid">
+
+      <div class="benefit-card">
+        <div class="benefit-icon">📉</div>
+        <h4>Slash Support Costs</h4>
+        <p>Manual DNS setup generates more support tickets than any other task. Domain Connect eliminates it entirely — customers never touch a DNS record. Fewer tickets, lower cost per customer.</p>
+      </div>
+
+      <div class="benefit-card">
+        <div class="benefit-icon">🔒</div>
+        <h4>Reduce Churn &amp; Lock-in</h4>
+        <p>Every service connected through your platform is a service that keeps customers on your DNS. Domain Connect creates a natural stickiness — their whole SaaS stack lives in your zone.</p>
+        <span class="highlight-num" style="margin-top:10px">90%</span>
+        <span style="font-size:13px;color:var(--dc-gray)">renewal rate for domains actively using connected services</span>
+      </div>
+
+      <div class="benefit-card">
+        <div class="benefit-icon">🤝</div>
+        <h4>Attract Premium Service Partners</h4>
+        <p>Service providers across email, ecommerce, website building, and productivity actively seek Domain Connect-enabled registrars. Being on that list means partnership conversations and co-marketing opportunities.</p>
+      </div>
+
+      <div class="benefit-card">
+        <div class="benefit-icon">⚡</div>
+        <h4>Instant, Error-Free Provisioning</h4>
+        <p>The protocol handles SPF merging, conflict detection, and multi-record coordination automatically. No malformed records, no outages from manual mistakes — your reputation stays intact.</p>
+      </div>
+
+      <div class="benefit-card">
+        <div class="benefit-icon">🏗️</div>
+        <h4>One Integration, Infinite Services</h4>
+        <p>Implement the Domain Connect API once. Every new service provider that publishes a template works with your platform immediately — no per-service engineering effort required.</p>
+      </div>
+
+      <div class="benefit-card">
+        <div class="benefit-icon">🌐</div>
+        <h4>Open Standard Backing</h4>
+        <p>Domain Connect is under active IETF standardization (DCONN Working Group). Your investment is in a protocol with long-term industry support — not a proprietary integration that can be sunsetted.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Technical flow diagram -->
+  <div class="dns-diagram">
+    <div class="dns-diagram-inner">
+
+      <div class="dns-diagram-text">
+        <h3>How It Works for Your Platform</h3>
+        <h2>Your DNS API does the heavy lifting — users just click "Connect"</h2>
+        <p>Domain Connect standardizes the communication between service providers and DNS platforms. You implement the API; service providers publish templates. The protocol handles the rest.</p>
+        <div class="dns-flow-steps">
+          <div class="dns-flow-step">
+            <div class="dns-step-num">1</div>
+            <div class="dns-step-text">
+              <strong>Publish your endpoint</strong>
+              <span>Add a <code style="font-size:11px;background:#eef;padding:1px 4px;border-radius:3px">_domainconnect</code> TXT record advertising your API URL</span>
+            </div>
+          </div>
+          <div class="dns-flow-step">
+            <div class="dns-step-num">2</div>
+            <div class="dns-step-text">
+              <strong>Service provider discovers you</strong>
+              <span>They look up your TXT record, retrieve your discovery document, and build a signed redirect URL</span>
+            </div>
+          </div>
+          <div class="dns-flow-step">
+            <div class="dns-step-num">3</div>
+            <div class="dns-step-text">
+              <strong>User lands on your consent screen</strong>
+              <span>Your platform shows exactly which records will change — human-readable, branded, trustworthy</span>
+            </div>
+          </div>
+          <div class="dns-flow-step">
+            <div class="dns-step-num">4</div>
+            <div class="dns-step-text">
+              <strong>You apply the template</strong>
+              <span>Your API processes the JSON template, applies conflict rules, writes records — then redirects back</span>
+            </div>
+          </div>
+          <div class="dns-flow-step">
+            <div class="dns-step-num">5</div>
+            <div class="dns-step-text">
+              <strong>Done in under 60 seconds</strong>
+              <span>No support ticket created, no DNS mistake made, no customer lost</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-diagram">
+        <!-- User -->
+        <div class="flow-actor">
+          <div class="flow-actor-icon user">👤</div>
+          <div>
+            <div style="font-size:12px;font-weight:700;color:var(--dc-navy)">Customer</div>
+            <div style="font-size:11px;color:var(--dc-gray);font-weight:400">Clicks "Connect Domain" in service app</div>
+          </div>
+        </div>
+
+        <div class="flow-connector">
+          <div class="flow-arrow">
+            <div class="flow-arrow-dot"></div>
+            <div class="flow-arrow-label">→ <strong>DNS lookup</strong> _domainconnect.yourdomain.example</div>
+          </div>
+        </div>
+
+        <!-- Service Provider -->
+        <div class="flow-actor">
+          <div class="flow-actor-icon sp">🏢</div>
+          <div>
+            <div style="font-size:12px;font-weight:700;color:var(--dc-navy)">Service Provider</div>
+            <div style="font-size:11px;color:var(--dc-gray);font-weight:400">Builds signed redirect URL with template ID + variables</div>
+          </div>
+        </div>
+
+        <div class="flow-connector">
+          <div class="flow-arrow">
+            <div class="flow-arrow-dot"></div>
+            <div class="flow-arrow-label">→ <strong>OAuth redirect</strong> to your consent screen</div>
+          </div>
+        </div>
+
+        <!-- DNS Provider -->
+        <div class="flow-actor" style="border-color:var(--dc-coral);background:linear-gradient(to right,#fff9f9,var(--dc-light))">
+          <div class="flow-actor-icon dns">🛡️</div>
+          <div>
+            <div style="font-size:12px;font-weight:700;color:var(--dc-coral)">Your DNS Platform</div>
+            <div style="font-size:11px;color:var(--dc-gray);font-weight:400">Shows consent UI → applies template via your API</div>
+          </div>
+        </div>
+
+        <div class="flow-connector">
+          <div class="flow-arrow">
+            <div class="flow-arrow-dot" style="background:var(--dc-navy);box-shadow:0 0 0 2px var(--dc-navy)"></div>
+            <div class="flow-arrow-label">→ <strong>Redirect back</strong> with success token</div>
+          </div>
+        </div>
+
+        <div style="background:#e8f8ee;border-radius:8px;padding:10px 14px;text-align:center;font-size:13px;font-weight:700;color:#1e8449">
+          ✓ Domain connected — customer stays in your ecosystem
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="dns-cta">
+    <h2>Ready to implement Domain Connect?</h2>
+    <p>Join ~20 DNS providers already on the network. The technical specification, OpenAPI schema, and reference implementation are available on GitHub.</p>
+    <a href="https://github.com/Domain-Connect/DomainConnectDNSProvider" class="btn btn-navy">Implementation Guide</a>
+    <a href="https://domainconnect.org/dns-providers" class="btn btn-outline">Full DNS Provider Page</a>
+  </div>
+
+</section>
+
+
+<p class="preview-label" style="margin-top:32px">MODULE 2 — SERVICE PROVIDER BENEFITS</p>
+
+<!-- ════════════════════════════════════════════════════════════════
+     MODULE 2: SERVICE PROVIDER BENEFITS
+════════════════════════════════════════════════════════════════ -->
+<section class="module-sp">
+
+  <!-- Intro band -->
+  <div class="mod-intro">
+    <span class="mod-eyebrow">For Service Providers &amp; SaaS Platforms</span>
+    <h2>Stop Losing Customers to<br><em>DNS Configuration Friction</em></h2>
+    <p>Half of users who attempt manual DNS setup never finish. Domain Connect removes the obstacle entirely — your product activates in seconds, not hours.</p>
+  </div>
+
+  <!-- Adopter logos -->
+  <div class="sp-adopters">
+    <span class="sp-adopters-label">Adopted by</span>
+    <div class="sp-adopters-logos">
+      <span class="adopter-pill"><span class="dot" style="background:#0078d4"></span>Email Services</span>
+      <span class="adopter-pill"><span class="dot" style="background:#4285f4"></span>Productivity Suites</span>
+      <span class="adopter-pill"><span class="dot" style="background:#95bf47"></span>eCommerce Platforms</span>
+      <span class="adopter-pill"><span class="dot" style="background:#222"></span>Website Builders</span>
+      <span class="adopter-pill"><span class="dot" style="background:#555"></span>Cloud Hosting</span>
+      <span class="adopter-pill"><span class="dot" style="background:#f28c00"></span>CMS Platforms</span>
+      <span class="adopter-pill" style="background:var(--dc-navy);color:var(--dc-white);border-color:var(--dc-navy)">+ 120 more</span>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="sp-stats">
+    <div class="stat">
+      <span class="stat-num">~50%</span>
+      <span class="stat-label">abandon manual DNS setup</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">7–15</span>
+      <span class="stat-label">DNS records per service on average</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">&lt;60s</span>
+      <span class="stat-label">setup time with Domain Connect</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">35%</span>
+      <span class="stat-label">of registered domains covered today</span>
+    </div>
+  </div>
+
+  <!-- Benefit cards -->
+  <div class="sp-benefits">
+    <h3>Why Service Providers Adopt Domain Connect</h3>
+    <div class="section-title">Convert more customers. Support fewer tickets.</div>
+    <p class="section-lead">Domain Connect replaces a 6-step manual process with a single "Connect" button — and it works at every DNS provider that's on the network.</p>
+
+    <div class="sp-benefit-grid">
+
+      <div class="sp-benefit-card coral-border">
+        <div class="sp-icon">📈</div>
+        <h4>Higher Conversion Rates</h4>
+        <p>Eliminating the DNS configuration step removes the #1 drop-off point in your onboarding funnel. More customers reach the "it's working" moment that drives retention.</p>
+      </div>
+
+      <div class="sp-benefit-card coral-border">
+        <div class="sp-icon">🎯</div>
+        <h4>Zero DNS Knowledge Required</h4>
+        <p>Your customers don't need to know what a CNAME is. They see "Connect your domain to [Your Product]" — click once — done. No docs, no support calls, no confusion.</p>
+      </div>
+
+      <div class="sp-benefit-card coral-border">
+        <div class="sp-icon">🛡️</div>
+        <h4>No Support Escalations</h4>
+        <p>DNS misconfiguration is the single largest source of support tickets for domain-dependent SaaS. Domain Connect eliminates the error surface entirely — records are applied by the DNS provider, not typed by the user.</p>
+      </div>
+
+      <div class="sp-benefit-card navy-border">
+        <div class="sp-icon">🔧</div>
+        <h4>One Template, All Providers</h4>
+        <p>Define your DNS requirements in a JSON template once. Every Domain Connect-enabled DNS provider applies it the same way — no per-registrar engineering, no maintenance burden.</p>
+      </div>
+
+      <div class="sp-benefit-card navy-border">
+        <div class="sp-icon">🔄</div>
+        <h4>Automated Lifecycle Management</h4>
+        <p>The async flow (OAuth2-based) lets you update DNS records throughout the service lifecycle — adding records for new features, rotating verification tokens — without customer involvement.</p>
+      </div>
+
+      <div class="sp-benefit-card navy-border">
+        <div class="sp-icon">⚖️</div>
+        <h4>Open Standard — No Lock-in</h4>
+        <p>Domain Connect is an open protocol under IETF standardization. You join a growing ecosystem of service providers — your integration works across the entire network of DNS providers automatically.</p>
+      </div>
+
+    </div>
+
+    <!-- Big number callouts -->
+    <div class="sp-highlight-row">
+      <div class="sp-highlight dark">
+        <div class="big-num">~50<sub>%</sub></div>
+        <div class="sp-highlight-text">
+          <h4>of customers abandon DNS setup</h4>
+          <p>Half your potential customers give up before your service ever starts. Domain Connect closes that gap by eliminating the step entirely.</p>
+        </div>
+      </div>
+      <div class="sp-highlight coral">
+        <div class="big-num">&lt;60<sub>s</sub></div>
+        <div class="sp-highlight-text">
+          <h4>average domain connection time</h4>
+          <p>vs. 20–45 minutes for manual setup. The customer's first experience is instant success — not confusion and a support ticket.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Before / After comparison -->
+  <div class="sp-compare">
+    <div class="sp-compare-inner">
+      <h3>The Setup Experience</h3>
+      <h2>Before and after Domain Connect</h2>
+
+      <div class="compare-cols">
+
+        <!-- Before -->
+        <div class="compare-col">
+          <div class="compare-col-head before">✗ &nbsp;Without Domain Connect</div>
+          <div class="compare-col-body">
+            <div class="compare-row">
+              <div class="cr-icon">😕</div>
+              <div class="cr-text"><strong>Find DNS provider</strong><span>Customer hunts for registrar login, support docs</span></div>
+              <div class="cr-time time-bad">5–10 min</div>
+            </div>
+            <div class="compare-row">
+              <div class="cr-icon">📖</div>
+              <div class="cr-text"><strong>Read your documentation</strong><span>Decode record types, hostnames, TTL values</span></div>
+              <div class="cr-time time-bad">10–20 min</div>
+            </div>
+            <div class="compare-row">
+              <div class="cr-icon">⌨️</div>
+              <div class="cr-text"><strong>Manually enter 7–15 records</strong><span>Error-prone — one typo breaks everything</span></div>
+              <div class="cr-time time-bad">10–20 min</div>
+            </div>
+            <div class="compare-row">
+              <div class="cr-icon">⏳</div>
+              <div class="cr-text"><strong>Wait for DNS propagation</strong><span>Hope nothing was entered incorrectly</span></div>
+              <div class="cr-time time-bad">up to 48h</div>
+            </div>
+            <div class="compare-row">
+              <div class="cr-icon">🆘</div>
+              <div class="cr-text"><strong>Contact support (50% do)</strong><span>Costly ticket, frustrated customer, delayed activation</span></div>
+              <div class="cr-time time-bad">+hours</div>
+            </div>
+          </div>
+          <div class="compare-col-footer before">~50% never complete this process</div>
+        </div>
+
+        <!-- After -->
+        <div class="compare-col">
+          <div class="compare-col-head after">✓ &nbsp;With Domain Connect</div>
+          <div class="compare-col-body">
+            <div class="compare-row">
+              <div class="cr-icon">🖱️</div>
+              <div class="cr-text"><strong>Click "Connect Domain"</strong><span>Single button in your onboarding flow</span></div>
+              <div class="cr-time time-good">2 sec</div>
+            </div>
+            <div class="compare-row">
+              <div class="cr-icon">🔐</div>
+              <div class="cr-text"><strong>DNS provider consent screen</strong><span>Shows exact records — human-readable, transparent</span></div>
+              <div class="cr-time time-good">15 sec</div>
+            </div>
+            <div class="compare-row">
+              <div class="cr-icon">✅</div>
+              <div class="cr-text"><strong>Click "Connect"</strong><span>DNS provider applies all records automatically</span></div>
+              <div class="cr-time time-good">5 sec</div>
+            </div>
+            <div class="compare-row">
+              <div class="cr-icon">🎉</div>
+              <div class="cr-text"><strong>Return to your app — active</strong><span>Domain is live, service is connected</span></div>
+              <div class="cr-time time-good">&lt;60s total</div>
+            </div>
+          </div>
+          <div class="compare-col-footer after">Near 100% completion rate</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="sp-cta">
+    <h2>Ready to add Domain Connect to your product?</h2>
+    <p>Create a JSON template for your DNS requirements and publish it. The Domain Connect team offers validation tooling and a test sandbox to get you live quickly.</p>
+    <a href="https://github.com/Domain-Connect/DomainConnect" class="btn btn-coral">View Service Provider Guide</a>
+    <a href="https://domainconnect.org/service-providers" class="btn btn-outline">Full Service Provider Page</a>
+  </div>
+
+</section>
+
+</body>
+</html>
